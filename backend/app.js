@@ -1,5 +1,3 @@
-//mongodb+srv://TinyFox:<password>@leagueapiuni.18g90cd.mongodb.net/?retryWrites=true&w=majority
-
 const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
@@ -16,7 +14,7 @@ app.use(function(req, res,next) {
 })
 
 // database things
-const uri = "mongodb+srv://TinyFox:<password>@leagueapiuni.18g90cd.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://TinyFox:12345@leagueapiuni.18g90cd.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -25,3 +23,18 @@ mongoose.connect(uri, {
     console.log("MongoDB connected")
 })
 .catch(err => console.log(err))
+
+app.use(bodyParser.json())
+
+//Routes 
+app.get("/", (res, req) => {
+    res.send("Home page OwO")
+})
+
+const TodosRoute = require('./routes/Todos');
+    app.use('/todos', TodosRoute)
+
+// Start Server
+app.listen(3000, () => {
+    console.log("Listening at port 3000")
+})
