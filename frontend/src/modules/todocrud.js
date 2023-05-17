@@ -27,11 +27,21 @@ const getTodos = () => {
         .then(() => { })
    }
 
+   const editTodo = (_id) => {
+    const requestOptions ={
+        method: "PUT"
+    }
+    fetch("http://localhost:3000/todos/update/" + _id, requestOptions)
+        .then(res => res.body)
+        .then(res => {console.log(res)})
+   }
+
    return {
     state,
     GetAllTodos,
     newTodo,
-    deleteTodo
+    deleteTodo,
+    editTodo
    }
 }
 
