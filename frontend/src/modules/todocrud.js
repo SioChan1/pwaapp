@@ -2,6 +2,8 @@ import { ref } from 'vue'
 
 const getTodos = () => {
    const state = ref({
+    newAuthor:'',
+    newTodoItem:'',
     todos: {}
    }) 
 
