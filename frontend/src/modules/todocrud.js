@@ -22,13 +22,16 @@ const getTodos = () => {
     fetch("http://localhost:3000/todos/new", { method: "POST"})
    }
 
-   const deleteTodo = () => {
-    
+   const deleteTodo = (_id) => {
+    fetch("http://localhost:3000/todos/delete/" + _id, { method: "DELETE"})
+        .then(() => { })
    }
 
    return {
     state,
-    GetAllTodos
+    GetAllTodos,
+    newTodo,
+    deleteTodo
    }
 }
 
