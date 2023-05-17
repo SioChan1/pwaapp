@@ -18,6 +18,14 @@ const getTodos = () => {
     }
    }
 
+   const newTodo = () => {
+    fetch("http://localhost:3000/todos/new", { method: "POST"})
+   }
+
+   const deleteTodo = () => {
+    
+   }
+
    return {
     state,
     GetAllTodos
