@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 })
 
 // create new Todo
-router.post('/new', async (res, req) => {
+router.post('/new', async (req, res) => {
     const newTodo = new Todo(
         //req.body // what vue app is sending 
         {
@@ -22,19 +22,19 @@ router.post('/new', async (res, req) => {
 })
 
 // getter by id 
-router.get('/get/:id', async (res, req) => {
+router.get('/get/:id', async (req, res) => {
     const t = await Todo.findById({ _id : req.params.id })
     res.json(t)
 })
 
 // delete todo by id
-router.delete('/delete/:id', async (res, req) => {
+router.delete('/delete/:id', async (req, res) => {
     const tDelete = await Todo.findByIdAndDelete({ _id : req.params.id })
     res.json(tDelete)
 })
 
 // update todo by id
-router.put('/update/:id', async (res, req) => {
+router.put('/update/:id', async (req, res) => {
     const tUpdate = await Todo.updateOne(
         // { _id: req.params.id }, { $set: req.body }
         {
