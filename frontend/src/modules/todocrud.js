@@ -55,7 +55,8 @@ const getTodos = () => {
 
 
   
-  const editTodo = () => { 
+  const editTodo = (id) => { 
+    console.log(state)
     const requestOptions = {
       method: "PUT",
       headers: {
@@ -67,7 +68,7 @@ const getTodos = () => {
         todo: state.value.newTodoItem
       }) 
     }
-    fetch("http://localhost:3000/todos/update/" + todoId.value, 
+    fetch("http://localhost:3000/todos/update/" + /* todoId.value */ id, 
     requestOptions)
      // .then(GetAllTodos())
       .then(res =>  res.body ) // redundant
@@ -79,13 +80,16 @@ const getTodos = () => {
 
 
   const todo = ref({})
-  const GetSpecificTodo = async () => {
+
+  const GetSpecificTodo = async (id) => {
     try {
-      fetch("http://localhost:3000/todos")
-        .then(res =>  res.json() ) 
-        .then(data => {
-            todo.value = data.filter(t => t._id === todoId.value)
-        })
+        let result = null
+        await fetch("http://localhost:3000/todos")
+            .then(res =>  res.json() ) 
+            .then(data => {
+                result = data.filter(t => t._id === id)[0]
+            })
+        return result
     }
     catch(error) {
       console.log(error)
