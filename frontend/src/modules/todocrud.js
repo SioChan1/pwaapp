@@ -21,7 +21,20 @@ const getTodos = () => {
    }
 
    const newTodo = () => {
-    fetch("http://localhost:3000/todos/new", { method: "POST"})
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+
+        },
+        body: JSON.stringify({
+            author: state.value.newAuthor,
+            todo: state.value.newTodoItem
+        })
+    }
+    fetch("http://localhost:3000/todos/new", 
+    requestOptions
+    ).then(GetAllTodos())
    }
 
    const deleteTodo = (_id) => {
