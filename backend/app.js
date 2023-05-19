@@ -1,9 +1,17 @@
 const express = require("express")
+var cors = require('cors')
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 
-// Create out express app
 const app = express()
+
+app.use(cors( { 
+    origin: '*',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}))
+console.log("pineapple")
+
+// Create out express app
 
 // handle the CORS plus middleware
 app.use(function(req, res,next) {

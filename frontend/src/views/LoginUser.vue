@@ -63,11 +63,16 @@ const login = async () => {
 }
 const register = async () => {
   try {
-    const response = await axios.post('http://localhost:3000/register', {
-      username: data.value.newUsername,
-      password: data.value.newPassword,
-    });
-
+    const response = await fetch('http://localhost:3000/register', {
+      method: "post",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: data.value.newUsername,
+        password: data.value.newPassword,
+      })
+    })
     if (response.data.success) {
       data.value.registrationMessage = response.data.message;
     } else {
