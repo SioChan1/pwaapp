@@ -14,12 +14,12 @@ console.log("pineapple")
 // Create out express app
 
 // handle the CORS plus middleware
-app.use(function(req, res,next) {
+/* app.use(function(req, res,next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE"); // If using .fetch and not axios
     res.header("Access-Control-Allow-Headers", "auth-token, Origin, X-Requested-With, Content-Type, Accept");
   next();
-})
+}) */
 
 // database things
 const uri = "mongodb+srv://TinyFox:12345@leagueapiuni.18g90cd.mongodb.net/?retryWrites=true&w=majority";
@@ -40,7 +40,10 @@ app.get("/", (res, req) => {
 })
 
 const TodosRoute = require('./routes/Todos');
-    app.use('/todos', TodosRoute)
+app.use('/todos', TodosRoute)
+
+const AuthRoute = require('./routes/Auth');
+app.use('/', AuthRoute)
 
 // Start Server
 app.listen(3000, () => {

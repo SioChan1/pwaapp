@@ -31,7 +31,6 @@
 </template>
 
 <script setup>
-import axios from 'axios';
 import { ref } from 'vue';
 
 const data = ref({
@@ -45,20 +44,31 @@ const data = ref({
 
 const login = async () => {
   try {
-    const response = await axios.post('http://localhost:3000/login', {
-      username: this.username,
-      password: this.password,
+    const response = await fetch('http://localhost:3000/login', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: data.value.username,
+        password: data.value.password
+      })
     });
 
-    if (response.data.success) {
-      // Handle successful login
-      console.log(response.data.message);
+    console.log(response);
+    if (response.ok) {
+      console.log(response.json());
+
+      response.json().then(newData => {
+        localStorage.setItem("id", newData.data.id)
+        localStorage.setItem("token", newData.data.token)
+      })
     } else {
-      this.errorMessage = response.data.message;
+      data.value.errorMessage = response.message;
     }
   } catch (error) {
     console.error('Error during login', error);
-    this.errorMessage = 'An error occurred';
+    data.value.errorMessage = 'An error occurred';
   }
 }
 const register = async () => {
@@ -70,13 +80,13 @@ const register = async () => {
       },
       body: JSON.stringify({
         username: data.value.newUsername,
-        password: data.value.newPassword,
+        password: data.value.newPassword
       })
     })
-    if (response.data.success) {
-      data.value.registrationMessage = response.data.message;
+    if (response.success) {
+      data.value.registrationMessage = response.message;
     } else {
-      data.value.registrationMessage = response.data.message;
+      data.value.registrationMessage = response.message;
     }
   } catch (error) {
     console.error('Error during registration', error);
