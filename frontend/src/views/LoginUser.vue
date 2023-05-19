@@ -4,82 +4,78 @@
     <form @submit.prevent="login">
       <div>
         <label for="username">Username</label>
-        <input type="text" id="username" v-model="username" required />
+        <input type="text" id="username" v-model="data.username" required />
       </div>
       <div>
         <label for="password">Password</label>
-        <input type="password" id="password" v-model="password" required />
+        <input type="password" id="password" v-model="data.password" required />
       </div>
       <button type="submit">Login</button>
     </form>
-    <p v-if="errorMessage">{{ errorMessage }}</p>
+    <p v-if="errorMessage">{{ data.errorMessage }}</p>
     
     <h2>Register</h2>
     <form @submit.prevent="register">
       <div>
         <label for="newUsername">Username</label>
-        <input type="text" id="newUsername" v-model="newUsername" required />
+        <input type="text" id="newUsername" v-model="data.newUsername" required />
       </div>
       <div>
         <label for="newPassword">Password</label>
-        <input type="password" id="newPassword" v-model="newPassword" required />
+        <input type="password" id="newPassword" v-model="data.newPassword" required />
       </div>
       <button type="submit">Register</button>
     </form>
-    <p v-if="registrationMessage">{{ registrationMessage }}</p>
+    <p v-if="registrationMessage">{{ data.registrationMessage }}</p>
   </div>
 </template>
 
-<script>
+<script setup>
 import axios from 'axios';
+import { ref } from 'vue';
 
-export default {
-  data() {
-    return {
-      username: '',
-      password: '',
-      errorMessage: '',
-      newUsername: '',
-      newPassword: '',
-      registrationMessage: '',
-    };
-  },
-  methods: {
-    async login() {
-      try {
-        const response = await axios.post('http://localhost:3000/login', {
-          username: this.username,
-          password: this.password,
-        });
+const data = ref({
+  username: "",
+  password: '',
+  errorMessage: '',
+  newUsername: '',
+  newPassword: '',
+  registrationMessage: '',
+})
 
-        if (response.data.success) {
-          // Handle successful login
-          console.log(response.data.message);
-        } else {
-          this.errorMessage = response.data.message;
-        }
-      } catch (error) {
-        console.error('Error during login', error);
-        this.errorMessage = 'An error occurred';
-      }
-    },
-    async register() {
-      try {
-        const response = await axios.post('http://localhost:3000/register', {
-          username: this.newUsername,
-          password: this.newPassword,
-        });
+const login = async () => {
+  try {
+    const response = await axios.post('http://localhost:3000/login', {
+      username: this.username,
+      password: this.password,
+    });
 
-        if (response.data.success) {
-          this.registrationMessage = response.data.message;
-        } else {
-          this.registrationMessage = response.data.message;
-        }
-      } catch (error) {
-        console.error('Error during registration', error);
-        this.registrationMessage = 'An error occurred';
-      }
-    },
-  },
-};
+    if (response.data.success) {
+      // Handle successful login
+      console.log(response.data.message);
+    } else {
+      this.errorMessage = response.data.message;
+    }
+  } catch (error) {
+    console.error('Error during login', error);
+    this.errorMessage = 'An error occurred';
+  }
+}
+const register = async () => {
+  try {
+    const response = await axios.post('http://localhost:3000/register', {
+      username: data.value.newUsername,
+      password: data.value.newPassword,
+    });
+
+    if (response.data.success) {
+      data.value.registrationMessage = response.data.message;
+    } else {
+      data.value.registrationMessage = response.data.message;
+    }
+  } catch (error) {
+    console.error('Error during registration', error);
+    data.value.registrationMessage = 'An error occurred';
+  }
+}
 </script>
