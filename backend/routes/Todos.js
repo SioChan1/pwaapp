@@ -1,11 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const { verifyToken } = require("../tokenValidation")
 const Todo = require('../models/Todos')
 
 // Get all Todo route
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
     const todos = await Todo.find();
     res.json(todos)
+})
+
+/* token verification test */
+router.get("/verifytest", verifyToken, (req, res) => {
+  res.send("Yaiii you are logged in! :3")
 })
 
 // create new Todo

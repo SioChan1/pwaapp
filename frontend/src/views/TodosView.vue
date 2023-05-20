@@ -39,6 +39,8 @@ import { onMounted } from 'vue'
 
       onMounted(() => {
         GetAllTodos()
+
+        console.log("state",state.value.todos)
       })
 
       return { state, GetAllTodos, newTodo, deleteTodo, editTodo }

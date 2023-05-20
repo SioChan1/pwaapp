@@ -17,7 +17,11 @@ const getTodos = () => {
 
   const GetAllTodos = async () => {
     try {
-       await fetch("http://localhost:3000/todos")
+      await fetch("http://localhost:3000/todos", {
+        headers: {
+          "auth-token": localStorage.getItem("token")
+        }
+      })
       .then(res => res.json())
       .then(data => {
         state.value.todos = data

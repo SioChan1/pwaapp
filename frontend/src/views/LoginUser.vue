@@ -55,10 +55,7 @@ const login = async () => {
       })
     });
 
-    console.log(response);
     if (response.ok) {
-      console.log(response.json());
-
       response.json().then(newData => {
         localStorage.setItem("id", newData.data.id)
         localStorage.setItem("token", newData.data.token)
