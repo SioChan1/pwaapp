@@ -60,7 +60,6 @@ const getTodos = () => {
 
   
   const editTodo = (id) => { 
-    console.log(state)
     const requestOptions = {
       method: "PUT",
       headers: {

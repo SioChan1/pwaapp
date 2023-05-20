@@ -15,7 +15,7 @@
         <input type="text" placeholder="Todo" v-model="state.newTodoItem">
         <span> Test: {{ item.todo }} </span>
         <br>
-        <button @click="editTodo()">Update Item</button> 
+        <button @click="editTodo(paramId)">Update Item</button> 
 
         <hr>
     </div>
@@ -38,6 +38,8 @@ export default {
     })
 
     const route = useRoute()
+    const paramId = ref(route.params.id)
+
     const loadData = async () => {
         const data = await GetSpecificTodo(route.params.id)
             
@@ -54,7 +56,8 @@ export default {
         todoId,
         editTodo,
         state,
-        item
+        item,
+        paramId
     }
     }
 }
