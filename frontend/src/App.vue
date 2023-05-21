@@ -3,26 +3,32 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/todos">Todos</RouterLink>
-        <RouterLink to="/login">Login</RouterLink>
-      </nav>
-    </div>
-  </header>
+  <div class="app">
+    <header>
+      <div class="wrapper">
+        <nav>
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/about">About</RouterLink>
+          <RouterLink to="/todos">Todos</RouterLink>
+          <RouterLink to="/login">Login</RouterLink>
+        </nav>
+      </div>
+    </header>
 
-  <RouterView />
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>
-
+.app{
+  display: flex;
+  flex-direction: column;
+}
 
 header {
   line-height: 1.5;
   max-height: 100vh;
+  
 }
 
 nav {
@@ -52,7 +58,6 @@ nav a:first-of-type {
 
 @media (min-width: 1024px) {
   header {
-    display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
   }

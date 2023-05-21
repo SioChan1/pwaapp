@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="Todos">
     <h1>All Todos</h1>
     <button @click="newTodo()">New Todo - static</button>
     <br>
@@ -50,6 +50,8 @@ import { onMounted } from 'vue'
   }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="css" scoped>
+.Todos{
+  min-height: 100vh;
+}
 </style>

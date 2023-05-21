@@ -1,32 +1,32 @@
 <template>
-  <div>
+  <div class="login-div">
     <h2>Login</h2>
-    <form @submit.prevent="login">
-      <div>
+    <form @submit.prevent="login" class="form">
+      <div class="form-group">
         <label for="username">Username</label>
         <input type="text" id="username" v-model="data.username" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="password">Password</label>
         <input type="password" id="password" v-model="data.password" required />
       </div>
       <button type="submit">Login</button>
     </form>
-    <p v-if="errorMessage">{{ data.errorMessage }}</p>
-    
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+
     <h2>Register</h2>
-    <form @submit.prevent="register">
-      <div>
+    <form @submit.prevent="register" class="form">
+      <div class="form-group">
         <label for="newUsername">Username</label>
         <input type="text" id="newUsername" v-model="data.newUsername" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="newPassword">Password</label>
         <input type="password" id="newPassword" v-model="data.newPassword" required />
       </div>
       <button type="submit">Register</button>
     </form>
-    <p v-if="registrationMessage">{{ data.registrationMessage }}</p>
+    <p v-if="registrationMessage" class="success-message">{{ registrationMessage }}</p>
   </div>
 </template>
 
@@ -91,3 +91,68 @@ const register = async () => {
   }
 }
 </script>
+
+<style lang="css" scoped>
+.login-div{
+  min-height: 100vh;
+}
+
+.login-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+h2 {
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.form {
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  padding: 8px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.success-message {
+  color: green;
+  margin-top: 10px;
+}
+</style>
