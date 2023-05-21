@@ -4,7 +4,7 @@
     
     <span> Task Creator:</span>
     <input type="text" placeholder="Author" v-model="state.newAuthor">
-    <br>
+    
     <span> Task at hand:</span>
     <textarea placeholder="Todo" v-model="state.newTodoItem"></textarea>
     
