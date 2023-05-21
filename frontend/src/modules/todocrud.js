@@ -45,7 +45,7 @@ const getTodos = () => {
         todo: state.value.newTodoItem
       }) 
     }
-      fetch("http://localhost:3000/todos/new", 
+    fetch("http://localhost:3000/todos/new", 
       requestOptions
     ).then(GetAllTodos())
   }

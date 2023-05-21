@@ -1,17 +1,17 @@
 <template>
   <div class="Todos">
     <h1>All Todos</h1>
-    <button @click="newTodo()">New Todo - static</button>
-    <br>
+    
+    <span> Task Creator:</span>
     <input type="text" placeholder="Author" v-model="state.newAuthor">
-    <span> Test: {{ state.newAuthor }} </span>
     <br>
-    <input type="text" placeholder="Todo" v-model="state.newTodoItem">
-    <span> Test: {{ state.newTodoItem }} </span>
-
+    <span> Task at hand:</span>
+    <textarea placeholder="Todo" v-model="state.newTodoItem"></textarea>
+    
+    <button @click="makeTodo()">New Task</button>
     <br>
 
-    <div v-for="todo in state.todos" :key="todo._id">
+    <div v-for="todo in state.todos" :key="todo._id" class="todo-card">
       <router-link :to="`/todo/${todo._id}`">
         <h4>
           {{todo.author}}
@@ -20,9 +20,9 @@
           {{todo.todo}}
         </p>
         
-        <button @click="editTodo(todo._id)">Edit todo</button>
       </router-link>
-      <button @click="deleteTodo(todo._id)">Delete todo</button>
+      <button @click="editTodo(todo._id)">Edit Task</button>
+      <button @click="deleteTodo(todo._id)">Delete Task</button>
     </div>
     
   </div>
@@ -43,7 +43,14 @@ import { onMounted } from 'vue'
         console.log("state",state.value.todos)
       })
 
-      return { state, GetAllTodos, newTodo, deleteTodo, editTodo }
+      const makeTodo = () =>{ 
+        newTodo()
+        state.value.newAuthor = ""
+        state.value.newTodoItem = ""
+        GetAllTodos()
+      }
+
+      return { state, GetAllTodos, newTodo, deleteTodo, editTodo, makeTodo }
     },
    
     
@@ -51,7 +58,75 @@ import { onMounted } from 'vue'
 </script>
 
 <style lang="css" scoped>
-.Todos{
+.todos {
   min-height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+button:first-of-type{
+  margin-right: 4px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: block;
+  max-width: 100%;
+}
+
+textarea{
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: block;
+  max-width: 100%;
+  resize: vertical;
+}
+
+.todo-card {
+  background-color: #f5f5f5;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  max-width: 100%;
+}
+
+h4 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+p {
+  margin-top: 0;
+}
+
+.todo-card button {
+  margin-top: 10px;
+}
+
+.router-link-active {
+  background-color: #e0e0e0;
 }
 </style>

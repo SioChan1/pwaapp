@@ -60,7 +60,8 @@ const login = async () => {
       response.json().then(newData => {
         localStorage.setItem("id", newData.data.id)
         localStorage.setItem("token", newData.data.token)
-        router.push ("/")
+        /* router.push ("/") */
+        document.location.href="/";
       })
     } else {
       data.value.errorMessage = response.message;

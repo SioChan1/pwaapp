@@ -1,5 +1,21 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { onMounted, ref } from 'vue'
+
+const loggedIn = ref(false)
+
+const logout = () => {
+  localStorage.removeItem('token')
+  localStorage.removeItem('id')
+  document.location.href="/";
+}
+
+onMounted(() => {
+  const token = localStorage.getItem('token')
+  if(token){
+    loggedIn.value = true
+  }
+})
 </script>
 
 <template>
@@ -9,8 +25,13 @@ import { RouterLink, RouterView } from 'vue-router'
         <nav>
           <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/about">About</RouterLink>
-          <RouterLink to="/todos">Todos</RouterLink>
-          <RouterLink to="/login">Login</RouterLink>
+          <template v-if="loggedIn">  
+            <RouterLink to="/todos">Todos</RouterLink>
+            <a @click="logout()">Logout</a>
+          </template>
+          <template v-else>
+            <RouterLink to="/login">Login</RouterLink>
+          </template>
         </nav>
       </div>
     </header>
