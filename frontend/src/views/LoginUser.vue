@@ -32,7 +32,8 @@
 
 <script setup>
 import { ref } from 'vue';
-
+import { useRouter } from 'vue-router';
+const router = useRouter()
 const data = ref({
   username: "",
   password: '',
@@ -59,6 +60,7 @@ const login = async () => {
       response.json().then(newData => {
         localStorage.setItem("id", newData.data.id)
         localStorage.setItem("token", newData.data.token)
+        router.push ("/")
       })
     } else {
       data.value.errorMessage = response.message;
@@ -81,6 +83,7 @@ const register = async () => {
       })
     })
     if (response.success) {
+      router.push ("/")
       data.value.registrationMessage = response.message;
     } else {
       data.value.registrationMessage = response.message;
