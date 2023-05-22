@@ -1,0 +1,183 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: "REST API Documentation"
+servers:
+  - url: http://localhost:3000/
+    description: Localhost development server 
+  - url: https://ppwa-api-exam.onrender.com/
+    description: Heroku remote server
+components:
+  securitySchemes:
+    ApiKeyAuth:        # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: auth-token
+
+  schemas:
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    LoginCredentials:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        id:
+          type: string
+    Todo:
+      type: object
+      properties:
+        todo:
+          type: string
+        author:
+          type: string
+    TodoList:
+      type: array
+      items:
+        $ref: "#/components/schemas/Todo"
+
+    
+paths:
+  /register:
+    post:
+      tags:
+        - Authentication
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /login:
+    post:
+      tags:
+        - Authentication
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginCredentials"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+  /todos:
+    get:
+      tags:
+        - Todos
+      summary: Get all Todos
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TodoList"
+      security:
+        - ApiKeyAuth: []
+    post:
+      tags:
+        - Todos
+      summary: Create a new Todo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Todo"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+  /todos/get/{id}:
+    get:
+      tags:
+        - Todos
+      summary: Get a Todo by ID
+      parameters:
+        - in: path
+          name: id
+          description: Todo ID
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+  /todos/delete/{id}:
+    delete:
+      tags:
+        - Todos
+      summary: Delete a Todo by ID
+      parameters:
+        - in: path
+          name: id
+          description: Todo ID
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+  /todos/update/{id}:
+    put:
+      tags:
+        - Todos
+      summary: Update a Todo by ID
+      parameters:
+        - in: path
+          name: id
+          description: Todo ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Todo"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+

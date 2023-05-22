@@ -2,8 +2,17 @@ const express = require("express")
 var cors = require('cors')
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
-
+const swaggerUi = require('swagger-ui-express')
+const YAML = require('yamljs')
 const app = express()
+
+//setup Swagger
+const swaggerDocument = YAML.load('./swagger.yaml');
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+//setupswagger
+const swaggerDefinition = YAML.load('./swagger.yaml');
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 app.use(cors( { 
     origin: '*',
@@ -49,3 +58,4 @@ app.use('/', AuthRoute)
 app.listen(3000, () => {
     console.log("Listening at port 3000")
 })
+
