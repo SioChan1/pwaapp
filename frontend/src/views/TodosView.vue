@@ -22,7 +22,7 @@
         
         <button >Edit Task</button>
       </router-link>
-      <button @click="deleteTodo(todo._id)">Delete Task</button>
+      <button @click="deleteAndUpdateTodo(todo._id)">Delete Task</button>
     </div>
     
   </div>
@@ -50,7 +50,12 @@ import { onMounted } from 'vue'
         GetAllTodos()
       }
 
-      return { state, GetAllTodos, newTodo, deleteTodo, editTodo, makeTodo }
+      const deleteAndUpdateTodo = (id) => {
+        deleteTodo(id)
+        GetAllTodos()
+      }
+
+      return { state, GetAllTodos, newTodo, deleteAndUpdateTodo, deleteTodo, editTodo, makeTodo }
     },
    
     
