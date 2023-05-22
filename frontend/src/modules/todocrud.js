@@ -71,7 +71,7 @@ const getTodos = () => {
         todo: state.value.newTodoItem
       }) 
     }
-    fetch("http://localhost:3000/todos/update/" + /* todoId.value */ id, 
+    fetch("https://ppwa-api-exam.onrender.com/todos/update/" + /* todoId.value */ id, 
     requestOptions)
      // .then(GetAllTodos())
       .then(res =>  res.body ) // redundant
@@ -87,7 +87,7 @@ const getTodos = () => {
   const GetSpecificTodo = async (id) => {
     try {
         let result = null
-        await fetch("http://localhost:3000/todos")
+        await fetch("https://ppwa-api-exam.onrender.com/todos")
             .then(res =>  res.json() ) 
             .then(data => {
                 result = data.filter(t => t._id === id)[0]
