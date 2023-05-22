@@ -6,7 +6,7 @@ servers:
   - url: http://localhost:3000/
     description: Localhost development server 
   - url: https://ppwa-api-exam.onrender.com/
-    description: Heroku remote server
+    description: Render remote server
 components:
   securitySchemes:
     ApiKeyAuth:        # arbitrary name for the security scheme
