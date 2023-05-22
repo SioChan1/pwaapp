@@ -1,74 +1,51 @@
-const express = require('express');
-const mongoose = require('mongoose');
+const express = require("express")
+var cors = require('cors')
+const mongoose = require("mongoose")
+const bodyParser = require("body-parser")
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const app = express()
 
+app.use(cors( { 
+    origin: '*',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}))
+console.log("pineapple")
 
-/* var corsOptions = { -- maybe later
-  origin: 'http://example.com',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-} */
+// Create out express app
 
-// Connect to MongoDB Atlas
-mongoose.connect('mongodb+srv://TinyFox:12345@leagueapiuni.18g90cd.mongodb.net/', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+// handle the CORS plus middleware
+/* app.use(function(req, res,next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE"); // If using .fetch and not axios
+    res.header("Access-Control-Allow-Headers", "auth-token, Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}) */
+
+// database things
+const uri = "mongodb+srv://TinyFox:12345@leagueapiuni.18g90cd.mongodb.net/?retryWrites=true&w=majority";
+mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
-  .then(() => {
-    console.log('Connected to MongoDB Atlas');
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.error('Error connecting to MongoDB Atlas', error);
-  });
+.then(() => {
+    console.log("MongoDB connected")
+})
+.catch(err => console.log(err))
 
-// Create a User model
-const User = mongoose.model('User', {
-  username: String,
-  password: String,
-});
+app.use(bodyParser.json())
 
-// Login endpoint
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+//Routes 
+app.get("/", (res, req) => {
+    res.send("Home page OwO")
+})
 
-  try {
-    // Find the user by username and password
-    const user = await User.findOne({ username, password });
+const TodosRoute = require('./routes/Todos');
+app.use('/todos', TodosRoute)
 
-    if (user) {
-      res.json({ success: true, message: 'Login successful' });
-    } else {
-      res.json({ success: false, message: 'Invalid username or password' });
-    }
-  } catch (error) {
-    console.error('Error during login', error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
-  }
-});
+const AuthRoute = require('./routes/Auth');
+app.use('/', AuthRoute)
 
-// Registration endpoint
-app.post('/register', async (req, res) => {
-    const { username, password } = req.body;
-  
-    try {
-      // Check if the username already exists
-      const existingUser = await User.findOne({ username });
-  
-      if (existingUser) {
-        res.json({ success: false, message: 'Username already exists' });
-      } else {
-        // Create a new user
-        const user = new User({ username, password });
-        await user.save();
-        res.json({ success: true, message: 'Registration successful' });
-      }
-    } catch (error) {
-      console.error('Error during registration', error);
-      res.status(500).json({ success: false, message: 'Internal server error' });
-    }
-  });
-  
+// Start Server
+app.listen(3000, () => {
+    console.log("Listening at port 3000")
+})
