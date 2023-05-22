@@ -17,7 +17,7 @@ const getTodos = () => {
 
   const GetAllTodos = async () => {
     try {
-      await fetch("http://localhost:3000/todos", {
+      await fetch("https://ppwa-api-exam.onrender.com/todos", {
         headers: {
           "auth-token": localStorage.getItem("token")
         }
@@ -45,14 +45,14 @@ const getTodos = () => {
         todo: state.value.newTodoItem
       }) 
     }
-    fetch("http://localhost:3000/todos/new", 
+    fetch("https://ppwa-api-exam.onrender.com/todos/new", 
       requestOptions
     ).then(GetAllTodos())
   }
   
 
   const deleteTodo = (_id) => {
-    fetch("http://localhost:3000/todos/delete/" + _id, { method: "DELETE"})
+    fetch("https://ppwa-api-exam.onrender.com/delete/" + _id, { method: "DELETE"})
       .then(GetAllTodos())
   }
 
