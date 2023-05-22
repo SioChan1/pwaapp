@@ -52,8 +52,13 @@ const getTodos = () => {
   
 
   const deleteTodo = (_id) => {
-    fetch("https://ppwa-api-exam.onrender.com/delete/" + _id, { method: "DELETE"})
-      .then(GetAllTodos())
+    fetch("https://ppwa-api-exam.onrender.com/delete/" + _id, {
+      method: "DELETE",
+      headers: {
+        "auth-token": state.value.token
+      }
+    })
+    .then(GetAllTodos())
   }
 
 
