@@ -52,6 +52,7 @@ const getTodos = () => {
   
 
   const deleteTodo = (_id) => {
+    console.log(_id)
     fetch("https://ppwa-api-exam.onrender.com/delete/" + _id, {
       method: "DELETE",
       headers: {
@@ -60,8 +61,6 @@ const getTodos = () => {
     })
     .then(GetAllTodos())
   }
-
-
 
   
   const editTodo = (id) => { 

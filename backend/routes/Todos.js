@@ -36,6 +36,8 @@ router.get('/get/:id', async (req, res) => {
 
 // delete todo by id
 router.delete('/delete/:id', async (req, res) => {
+  console.log("req.params.id")
+  console.log(req.params.id)
     const tDelete = await Todo.findByIdAndDelete({ _id : req.params.id })
     res.json(tDelete)
 })
