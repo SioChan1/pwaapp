@@ -35,7 +35,7 @@ mongoose.connect(uri, {
 app.use(bodyParser.json())
 
 //Routes 
-app.get("/", (res, req) => {
+app.get("/", (req, res) => {
     res.send("Home page OwO")
 })
 
