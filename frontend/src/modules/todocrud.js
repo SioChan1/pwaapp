@@ -53,7 +53,7 @@ const getTodos = () => {
 
   const deleteTodo = (_id) => {
     console.log(_id)
-    fetch("https://ppwa-api-exam.onrender.com/delete/" + _id, {
+    fetch("https://ppwa-api-exam.onrender.com/todos/delete/" + _id, {
       method: "DELETE",
       headers: {
         "auth-token": state.value.token
@@ -62,7 +62,8 @@ const getTodos = () => {
     .then(GetAllTodos())
   }
 
-  
+
+
   const editTodo = (id) => { 
     const requestOptions = {
       method: "PUT",

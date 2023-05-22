@@ -35,6 +35,7 @@ router.get('/get/:id', async (req, res) => {
 })
 
 // delete todo by id
+//             /delete/646b1ff5317c6d2a5f2ece56 
 router.delete('/delete/:id', async (req, res) => {
   console.log("req.params.id")
   console.log(req.params.id)
