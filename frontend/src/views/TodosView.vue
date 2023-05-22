@@ -20,7 +20,7 @@
           {{todo.todo}}
         </p>
         
-      <button >Edit Task</button>
+        <button >Edit Task</button>
       </router-link>
       <button @click="deleteTodo(todo._id)">Delete Task</button>
     </div>
