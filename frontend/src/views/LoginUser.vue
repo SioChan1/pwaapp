@@ -18,7 +18,7 @@
     <form @submit.prevent="register" class="form">
       <div class="form-group">
         <label for="newNickname">Username</label>
-        <input type="text" id="newNickname" v-model="data.newNickname" required />
+        <input type="text" id="newNickname" v-model="data.newNickname" />
       </div>
       <div class="form-group">
         <label for="newUsername">Email</label>
@@ -88,11 +88,10 @@ const register = async () => {
         nickname: data.value.newNickname
       })
     })
-    console.log (data.value.newNickname)
-    if (response.success) {
-      router.push ("/")
-      data.value.registrationMessage = response.message;
-      console.log("yay")
+    
+    if (response.ok) {
+      data.value.registrationMessage = "Congratulations, you registered!";
+      document.location.reload();
     } else {
       data.value.registrationMessage = response.message;
       console.log("QwQ")

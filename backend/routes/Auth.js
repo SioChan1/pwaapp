@@ -2,10 +2,16 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/Users')
 const bcrypt = require('bcrypt');
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const {registerValidation} = require("../validation/register")
 
 // create new user
 router.post('/register', async (req, res) => {
+    const {error} = registerValidation(req.body)
+
+    if(error){
+        return res.status(400).json({ error: error.details[0].message})
+    }
 
     const salt = await bcrypt.genSalt(10)
 
@@ -16,13 +22,11 @@ router.post('/register', async (req, res) => {
         password: hashedPassword,
         nickname: req.body.nickname,
     }); 
-    console.log(newUser)
     try{  
         const savedUser = await newUser.save() // mongo save method
         res.status(201).json(savedUser) // respond with json to our post endpoint
-        console.log("pain")
     } catch (error){
-        console.log("ouch")
+        console.log("ehh fire")
     }
   
 });

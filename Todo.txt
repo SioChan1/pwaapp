@@ -1,0 +1,10 @@
+         Reguster/Loggin
+- Refresh after someone is logged in 
+- Make rules around the logging and register 
+- Inform if there is an error on logging on register 
+
+            Todos
+- Add fixed user name of someone who made the task.
+- Change Author to task name 
+- Make done button that would archive done tasks 
+- Change layout of tasks 
