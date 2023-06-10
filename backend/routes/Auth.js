@@ -6,16 +6,25 @@ const jwt = require("jsonwebtoken")
 
 // create new user
 router.post('/register', async (req, res) => {
+
     const salt = await bcrypt.genSalt(10)
 
     const hashedPassword = await bcrypt.hash(req.body.password, salt)
 
     const newUser = new User({
         username: req.body.username,
-        password: hashedPassword
+        password: hashedPassword,
+        nickname: req.body.nickname,
     }); 
-    const savedUser = await newUser.save() // mongo save method
-    res.json(savedUser) // respond with json to our post endpoint
+    console.log(newUser)
+    try{  
+        const savedUser = await newUser.save() // mongo save method
+        res.status(201).json(savedUser) // respond with json to our post endpoint
+        console.log("pain")
+    } catch (error){
+        console.log("ouch")
+    }
+  
 });
 
 router.get('/login', async (req, res) => {

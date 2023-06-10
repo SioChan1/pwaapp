@@ -5,7 +5,7 @@ info:
 servers:
   - url: http://localhost:3000/
     description: Localhost development server 
-  - url: https://ppwa-api-exam.onrender.com/
+  - url: http://localhost:3000/
     description: Render remote server
 components:
   securitySchemes:

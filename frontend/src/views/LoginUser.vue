@@ -3,7 +3,7 @@
     <h2>Login</h2>
     <form @submit.prevent="login" class="form">
       <div class="form-group">
-        <label for="username">Username</label>
+        <label for="username">Email</label>
         <input type="text" id="username" v-model="data.username" required />
       </div>
       <div class="form-group">
@@ -17,7 +17,11 @@
     <h2>Register</h2>
     <form @submit.prevent="register" class="form">
       <div class="form-group">
-        <label for="newUsername">Username</label>
+        <label for="newNickname">Username</label>
+        <input type="text" id="newNickname" v-model="data.newNickname" required />
+      </div>
+      <div class="form-group">
+        <label for="newUsername">Email</label>
         <input type="text" id="newUsername" v-model="data.newUsername" required />
       </div>
       <div class="form-group">
@@ -45,7 +49,7 @@ const data = ref({
 
 const login = async () => {
   try {
-    const response = await fetch('https://ppwa-api-exam.onrender.com/login', {
+    const response = await fetch('http://localhost:3000/login', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -73,21 +77,25 @@ const login = async () => {
 }
 const register = async () => {
   try {
-    const response = await fetch('https://ppwa-api-exam.onrender.com/register', {
+    const response = await fetch('http://localhost:3000/register', {
       method: "post",
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         username: data.value.newUsername,
-        password: data.value.newPassword
+        password: data.value.newPassword,
+        nickname: data.value.newNickname
       })
     })
+    console.log (data.value.newNickname)
     if (response.success) {
       router.push ("/")
       data.value.registrationMessage = response.message;
+      console.log("yay")
     } else {
       data.value.registrationMessage = response.message;
+      console.log("QwQ")
     }
   } catch (error) {
     console.error('Error during registration', error);
