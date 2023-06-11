@@ -1,6 +1,4 @@
-         Reguster/Loggin
-- Refresh after someone is logged in 
-- Make rules around the logging and register 
+         Reguster/Loggin 
 - Inform if there is an error on logging on register 
 
             Todos

@@ -1,12 +1,6 @@
 const mongoose = require('mongoose')
 const UsersSchema = new mongoose.Schema({
-   /*  username: {type: String, require: true, min: 3},
-    password: {type: String, require: true, min: 3},
-    nickname: {
-        type: String, 
-        require: true, 
-        min: 3
-    } */
+  
     nickname: {
         type: String, 
         require: true, 

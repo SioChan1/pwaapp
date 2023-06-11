@@ -11,7 +11,8 @@
     <button @click="makeTodo()">New Task</button>
     <br>
 
-    <div v-for="todo in state.todos" :key="todo._id" class="todo-card">
+    <div class="todo-card-container">
+      <div v-for="todo in state.todos" :key="todo._id" class="todo-card">
       <router-link :to="`/todo/${todo._id}`">
         <h4>
           {{todo.author}}
@@ -23,7 +24,10 @@
         <button >Edit Task</button>
       </router-link>
       <button @click="deleteAndUpdateTodo(todo._id)">Delete Task</button>
+      </div>
     </div>
+
+    
     
   </div>
 </template>
@@ -108,6 +112,12 @@ textarea{
   display: block;
   max-width: 100%;
   resize: vertical;
+}
+
+.todo-card-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  grid-gap: 20px; /* Adjust the gap between cards */
 }
 
 .todo-card {
