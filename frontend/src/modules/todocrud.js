@@ -94,15 +94,36 @@ const getTodos = () => {
   const GetSpecificTodo = async (id) => {
     try {
         let result = null
-        await fetch("http://localhost:3000/todos")
-            .then(res =>  res.json() ) 
-            .then(data => {
-                result = data.filter(t => t._id === id)[0]
-            })
+        await fetch("http://localhost:3000/todos", {
+          headers: {
+            "auth-token": localStorage.getItem("token")
+          }
+        })
+        .then(res =>  res.json() ) 
+        .then(data => {
+            result = data.filter(t => t._id === id)[0]
+        })
         return result
     }
     catch(error) {
       console.log(error)
+    }
+    const x = async () => {
+      try {
+        await fetch("http://localhost:3000/todos", {
+          headers: {
+            "auth-token": localStorage.getItem("token")
+          }
+        })
+        .then(res => res.json())
+        .then(data => {
+          state.value.todos = data
+          // debugger
+        })
+      }
+      catch(error) {
+        console.log(error) // do different error to showcase - line 15 wrong name + line13 with incorrect path
+      }
     }
   }
 
