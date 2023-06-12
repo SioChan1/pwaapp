@@ -105,9 +105,6 @@ const register = async () => {
 
 <style lang="css" scoped>
 
-.nav{
-  align-items: right;
-}
 .login-div{
   min-height: 100vh;
 }

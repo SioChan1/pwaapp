@@ -6,3 +6,4 @@
     <TheWelcome />
   </main>
 </template>
+
