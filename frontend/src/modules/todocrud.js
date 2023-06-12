@@ -108,23 +108,6 @@ const getTodos = () => {
     catch(error) {
       console.log(error)
     }
-    const x = async () => {
-      try {
-        await fetch("http://localhost:3000/todos", {
-          headers: {
-            "auth-token": localStorage.getItem("token")
-          }
-        })
-        .then(res => res.json())
-        .then(data => {
-          state.value.todos = data
-          // debugger
-        })
-      }
-      catch(error) {
-        console.log(error) // do different error to showcase - line 15 wrong name + line13 with incorrect path
-      }
-    }
   }
 
 

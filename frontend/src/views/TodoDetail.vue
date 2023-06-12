@@ -2,10 +2,10 @@
   <div class="edit-form">
     <h1>Editing a ToDo</h1>
      <div class="form">
-      <span> Task name: {{ item.author }} </span>
+      <span> Task name: </span>
       <input type="text" placeholder="Task name" v-model="state.newAuthor">
       <br>
-      <span> Task: {{ item.todo }} </span>
+      <span> Task: </span>
       <br>
       <textarea placeholder="Task describtion" v-model="state.newTodoItem"></textarea>
       <br>
@@ -27,7 +27,7 @@ export default {
       author: "",
       todo: ""
     })
-
+    
     const route = useRoute()
     const paramId = ref(route.params.id)
 
@@ -38,6 +38,8 @@ export default {
 
       item.value.author = data.author
       item.value.todo = data.todo
+      state.value.newAuthor = item.value.author
+      state.value.newTodoItem = item.value.todo
     }
 
     loadData()
