@@ -152,6 +152,7 @@ h4 {
 
 p {
   margin-top: 0;
+  color: #2C7DA4;
 }
 
 .todo-card button {

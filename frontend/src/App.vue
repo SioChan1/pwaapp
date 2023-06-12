@@ -61,7 +61,7 @@ nav {
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  color: palevioletred;
 }
 
 nav a.router-link-exact-active:hover {
@@ -69,9 +69,11 @@ nav a.router-link-exact-active:hover {
 }
 
 nav a {
-  display: inline-block;
+
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
+  color: palevioletred;
+  
 }
 
 nav a:first-of-type {
@@ -94,6 +96,7 @@ nav a:first-of-type {
     text-align: center;
     margin-left: -1rem;
     font-size: 1rem;
+    color: palevioletred;
 
     padding: 1rem 0;
     margin-top: 1rem;

@@ -104,6 +104,10 @@ const register = async () => {
 </script>
 
 <style lang="css" scoped>
+
+.nav{
+  align-items: right;
+}
 .login-div{
   min-height: 100vh;
 }
@@ -120,6 +124,7 @@ h2 {
   font-size: 24px;
   margin-top: 20px;
   margin-bottom: 10px;
+  color: palevioletred;
 }
 
 .form {
@@ -149,7 +154,7 @@ input[type="password"] {
 button {
   width: 100%;
   padding: 8px;
-  background-color: #4caf50;
+  background-color: palevioletred;
   color: #fff;
   border: none;
   border-radius: 4px;
