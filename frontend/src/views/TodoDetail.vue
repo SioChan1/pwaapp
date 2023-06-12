@@ -2,12 +2,12 @@
     <div class="edit-form">
       <h1>Editing a ToDo</h1>
        <div class="form">
-        <span> Author: {{ item.author }} </span>
-        <input type="text" placeholder="Author" v-model="state.newAuthor">
+        <span> Task name: {{ item.author }} </span>
+        <input type="text" placeholder="Task name" v-model="state.newAuthor">
         <br>
         <span> Task: {{ item.todo }} </span>
         <br>
-        <textarea placeholder="Todo" v-model="state.newTodoItem"></textarea>
+        <textarea placeholder="Task describtion" v-model="state.newTodoItem"></textarea>
         <br>
         <button @click="editTodo(paramId)">Update Item</button>
       </div>
@@ -115,7 +115,7 @@
   button {
     width: 100%;
     padding: 8px;
-    background-color: #4caf50;
+    background-color: pink;
     color: #fff;
     border: none;
     border-radius: 4px;

@@ -2,12 +2,12 @@
 <div class="Todos">
   <h1>All Todos</h1>
 
-  <span> Task Creator:</span>
+  <span> Name of the task:</span>
   <input style="display: none" type="text" v-model="state.newNickname">
-  <input type="text" placeholder="Author" v-model="state.newAuthor">
+  <input type="text" placeholder="Task name" v-model="state.newAuthor">
 
   <span> Task at hand:</span>
-  <textarea placeholder="Todo" v-model="state.newTodoItem"></textarea>
+  <textarea placeholder="Describtion of task" v-model="state.newTodoItem"></textarea>
 
   <button @click="makeTodo()">New Task</button>
   <br>
@@ -15,12 +15,15 @@
   <div class="todo-card-container">
     <div v-for="todo in state.todos" :key="todo" class="todo-card">
       <router-link :to="`/todo/${todo._id}`">
+        <h3>
+          {{ todo.creator }}
+        </h3>
+        
         <h4>
           {{todo.author}}
+          <hr>
         </h4>
-        <h5>
-          {{ todo.creator }}
-        </h5>
+        
         <p>
           {{todo.todo}}
         </p>
@@ -80,9 +83,20 @@ h1 {
   margin-bottom: 10px;
 }
 
+h3 {
+  text-align: right;
+  font-weight: bold;
+  color: palevioletred;
+}
+
+h4 {
+  font-weight: bold;
+  color: palevioletred;
+}
+
 button {
   padding: 8px 16px;
-  background-color: #4caf50;
+  background-color: palevioletred;
   color: #fff;
   border: none;
   border-radius: 4px;
