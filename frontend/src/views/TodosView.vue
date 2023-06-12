@@ -1,35 +1,36 @@
 <template>
-  <div class="Todos">
-    <h1>All Todos</h1>
-    
-    <span> Task Creator:</span>
-    <input type="text" placeholder="Author" v-model="state.newAuthor">
-    
-    <span> Task at hand:</span>
-    <textarea placeholder="Todo" v-model="state.newTodoItem"></textarea>
-    
-    <button @click="makeTodo()">New Task</button>
-    <br>
+<div class="Todos">
+  <h1>All Todos</h1>
 
-    <div class="todo-card-container">
-      <div v-for="todo in state.todos" :key="todo._id" class="todo-card">
+  <span> Task Creator:</span>
+  <input style="display: none" type="text" v-model="state.newNickname">
+  <input type="text" placeholder="Author" v-model="state.newAuthor">
+
+  <span> Task at hand:</span>
+  <textarea placeholder="Todo" v-model="state.newTodoItem"></textarea>
+
+  <button @click="makeTodo()">New Task</button>
+  <br>
+
+  <div class="todo-card-container">
+    <div v-for="todo in state.todos" :key="todo" class="todo-card">
       <router-link :to="`/todo/${todo._id}`">
         <h4>
           {{todo.author}}
         </h4>
+        <h5>
+          {{ todo.creator }}
+        </h5>
         <p>
           {{todo.todo}}
         </p>
-        
+
         <button >Edit Task</button>
       </router-link>
       <button @click="deleteAndUpdateTodo(todo._id)">Delete Task</button>
-      </div>
     </div>
-
-    
-    
   </div>
+</div>
 </template>
 
 <script>
@@ -42,6 +43,7 @@ import { onMounted } from 'vue'
       const { state, GetAllTodos, newTodo, deleteTodo, editTodo  } = todocrud()
 
       onMounted(() => {
+        state.value.newNickname = localStorage.getItem("nickname")
         GetAllTodos()
 
         console.log("state",state.value.todos)
@@ -51,6 +53,7 @@ import { onMounted } from 'vue'
         newTodo()
         state.value.newAuthor = ""
         state.value.newTodoItem = ""
+        
         GetAllTodos()
       }
 

@@ -12,7 +12,8 @@ const getTodos = () => {
   const state = ref({
     newAuthor: '',
     newTodoItem: '',
-    todos: {}
+    todos: {},
+    newNickname: ''
   })
 
   const GetAllTodos = async () => {
@@ -42,7 +43,8 @@ const getTodos = () => {
       },
       body: JSON.stringify({
         author: state.value.newAuthor,
-        todo: state.value.newTodoItem
+        todo: state.value.newTodoItem,
+        creator: state.value.newNickname
       }) 
     }
     fetch("http://localhost:3000/todos/new", 

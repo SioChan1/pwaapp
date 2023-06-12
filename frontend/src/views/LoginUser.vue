@@ -63,6 +63,7 @@ const login = async () => {
       response.json().then(newData => {
         localStorage.setItem("id", newData.data.id)
         localStorage.setItem("token", newData.data.token)
+        localStorage.setItem("nickname", newData.data.nickname)
         /* router.push ("/") */
         document.location.href="/";
       })

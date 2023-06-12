@@ -7,6 +7,7 @@ const loggedIn = ref(false)
 const logout = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('id')
+  localStorage.removeItem('nickname')
   document.location.href="/";
 }
 
