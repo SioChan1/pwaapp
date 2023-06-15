@@ -28,6 +28,7 @@ onMounted(() => {
           <RouterLink to="/about">About</RouterLink>
           <template v-if="loggedIn">  
             <RouterLink to="/todos">Todos</RouterLink>
+            <router-link to="/profile">My Profile</router-link>
             <a @click="logout()">Logout</a>
           </template>
           <template v-else>
