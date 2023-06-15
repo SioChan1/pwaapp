@@ -72,4 +72,28 @@ router.post('/login', async (req, res) => {
     })
 })
 
+// Get user data 
+router.get('/specificUserData/:id', async (req, res) => {
+    //req.params.id
+    User.find({
+        _id: req.params.id
+    })
+    .then(UserData => res.send(UserData))
+    .catch(error => console.log(error))
+})
+
+//user id for profile(nicknames)
+router.post('/convertNicknamesToIds', async (req, res) => {
+    /* 
+        why no users in req.body...
+        attach ids to users for directing to profile page
+        front end needs id to got to profile/:id
+    */
+    console.log(req.body)
+    res.send(req.body)
+})
+
+
+
+
 module.exports = router 

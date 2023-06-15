@@ -44,16 +44,24 @@ router.delete('/delete/:id', async (req, res) => {
 
 // update todo by id
 router.put('/update/:id', async (req, res) => {
-    const tUpdate = await Todo.updateOne(
-      { _id: req.params.id }, 
-      
-      { $set: req.body }
-     /*  {
-        author: "Fox",
-        todo: "Sleep"
-      } */
-    )
-    res.json(tUpdate)
+  const tUpdate = await Todo.updateOne(
+    { _id: req.params.id }, 
+    
+    { $set: req.body }
+    /*  {
+      author: "Fox",
+      todo: "Sleep"
+    } */
+  )
+  res.json(tUpdate)
+})
+//get tasks by creator 
+router.get('/taskByNickname/:nickname', async (req, res) => {
+  Todo.find({
+    creator: req.params.nickname
   })
+  .then(TodoData => res.send(TodoData))
+  .catch(error => console.log(error))
+})
 
 module.exports = router 

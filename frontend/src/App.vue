@@ -17,6 +17,8 @@ onMounted(() => {
     loggedIn.value = true
   }
 })
+
+const id = ref(localStorage.getItem('id'))
 </script>
 
 <template>
@@ -28,7 +30,7 @@ onMounted(() => {
           <RouterLink to="/about">About</RouterLink>
           <template v-if="loggedIn">  
             <RouterLink to="/todos">Todos</RouterLink>
-            <router-link to="/profile">My Profile</router-link>
+            <router-link :to="'/profile/' + id">My Profile</router-link>
             <a @click="logout()">Logout</a>
           </template>
           <template v-else>

@@ -14,11 +14,12 @@
 
   <div class="todo-card-container">
     <div v-for="todo in state.todos" :key="todo" class="todo-card">
-      <router-link :to="`/todo/${todo._id}`">
+      <router-link :to="`/profile/`"></router-link>
         <h3>
           {{ todo.creator }}
         </h3>
-        
+
+      <router-link :to="`/todo/${todo._id}`">
         <h4>
           {{todo.author}}
           <hr>
@@ -48,8 +49,32 @@ import { onMounted } from 'vue'
       onMounted(() => {
         state.value.newNickname = localStorage.getItem("nickname")
         GetAllTodos()
+        .then(() => {
+          const users = []
+          
+          state.value.todos.forEach(todo => {
+            if(users.indexOf(todo.creator) == -1){
+              users.push(todo.creator)
+            }
+          });
+  
+          console.log(users)
+  
+          fetch('http://localhost:3000/convertNicknamesToIds', {
+            method: "post",
+            body: {
+              users: users
+            }
+          })
+          .then(data => {
+            data.json().then(convertion => {
+              console.log(convertion)
+            })
+          })
+        })
 
         console.log("state",state.value.todos)
+
       })
 
       const makeTodo = () =>{ 
@@ -64,6 +89,9 @@ import { onMounted } from 'vue'
         deleteTodo(id)
         GetAllTodos()
       }
+
+
+      
 
       return { state, GetAllTodos, newTodo, deleteAndUpdateTodo, deleteTodo, editTodo, makeTodo }
     },
