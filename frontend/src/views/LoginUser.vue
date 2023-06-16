@@ -30,7 +30,7 @@
       </div>
       <button type="submit">Register</button>
     </form>
-    <p v-if="registrationMessage" class="success-message">{{ registrationMessage }}</p>
+    <p v-if="data.registrationMessage" class="success-message">{{ data.registrationMessage }}</p>
   </div>
 </template>
 
@@ -43,7 +43,7 @@ const data = ref({
   errorMessage: '',
   newUsername: '',
   newPassword: '',
-  registrationMessage: '',
+  registrationMessage: 'No errors',
 })
 
 const login = async () => {
@@ -91,9 +91,13 @@ const register = async () => {
     
     if (response.ok) {
       data.value.registrationMessage = "Congratulations, you registered!";
-      document.location.reload();
+      //document.location.reload();
     } else {
-      data.value.registrationMessage = response.message;
+      response.json()
+      .then(res => {
+        data.value.registrationMessage = res.error;
+
+      })
       console.log("QwQ")
     }
   } catch (error) {
