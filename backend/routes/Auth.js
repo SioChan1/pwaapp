@@ -84,13 +84,31 @@ router.get('/specificUserData/:id', async (req, res) => {
 
 //user id for profile(nicknames)
 router.post('/convertNicknamesToIds', async (req, res) => {
-    /* 
-        why no users in req.body...
-        attach ids to users for directing to profile page
-        front end needs id to got to profile/:id
-    */
-    console.log(req.body)
-    res.send(req.body)
+    const returnArray = []
+
+    req.body.users.forEach(user => {
+        const userData = {
+            nickname: user,
+            id: ""
+        }
+
+        User.findOne({
+            nickname: user
+        })
+
+        .then(data => {
+            userData.id = data.id
+            returnArray.push(userData)
+            if(req.body.users.length == returnArray.length){
+                clearTimeout(timeOut)
+                res.send(returnArray)
+            }
+        })
+    });
+
+    const timeOut = setTimeout(() => {
+        res.send("Timed out")
+    }, 100000);
 })
 
 

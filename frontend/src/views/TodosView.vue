@@ -58,13 +58,16 @@ import { onMounted } from 'vue'
             }
           });
   
-          console.log(users)
+          console.log("users: " + users)
   
           fetch('http://localhost:3000/convertNicknamesToIds', {
             method: "post",
-            body: {
-              users: users
-            }
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              users
+            })
           })
           .then(data => {
             data.json().then(convertion => {
