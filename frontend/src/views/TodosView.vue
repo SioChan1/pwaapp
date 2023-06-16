@@ -7,7 +7,7 @@
   <input type="text" placeholder="Task name" v-model="state.newAuthor">
 
   <span> Task at hand:</span>
-  <textarea placeholder="Description of task" v-model="state.newTodoItem"></textarea>
+  <textarea placeholder="Describtion of task" v-model="state.newTodoItem"></textarea>
 
   <button @click="makeTodo()">New Task</button>
   <br>
