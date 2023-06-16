@@ -14,11 +14,11 @@
 
   <div class="todo-card-container">
     <div v-for="todo in state.todos" :key="todo" class="todo-card">
-      <router-link :to="`/profile/`"></router-link>
+      <router-link v-if="UserData.length != 0" :to="`/profile/` + convertNicknameToId(todo.creator)">
         <h3>
           {{ todo.creator }}
         </h3>
-
+      </router-link>
       <router-link :to="`/todo/${todo._id}`">
         <h4>
           {{todo.author}}
@@ -39,12 +39,14 @@
 
 <script>
 import todocrud from '../modules/todocrud'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
   export default {
     setup() {
 
       const { state, GetAllTodos, newTodo, deleteTodo, editTodo  } = todocrud()
+
+      const UserData = ref([])
 
       onMounted(() => {
         state.value.newNickname = localStorage.getItem("nickname")
@@ -72,6 +74,7 @@ import { onMounted } from 'vue'
           .then(data => {
             data.json().then(convertion => {
               console.log(convertion)
+              UserData.value = convertion
             })
           })
         })
@@ -79,6 +82,14 @@ import { onMounted } from 'vue'
         console.log("state",state.value.todos)
 
       })
+
+      const convertNicknameToId = (nickname) =>{
+        const index = UserData.value
+        .map(user => user.nickname)
+        .indexOf(nickname)
+
+        return UserData.value[index].id
+      }
 
       const makeTodo = () =>{ 
         newTodo()
@@ -96,7 +107,7 @@ import { onMounted } from 'vue'
 
       
 
-      return { state, GetAllTodos, newTodo, deleteAndUpdateTodo, deleteTodo, editTodo, makeTodo }
+      return { state, GetAllTodos, newTodo, deleteAndUpdateTodo, deleteTodo, editTodo, makeTodo, convertNicknameToId, UserData }
     },
    
     
