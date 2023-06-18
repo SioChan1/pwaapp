@@ -29,9 +29,12 @@
           {{todo.todo}}
         </p>
 
-        <button >Edit Task</button>
+        <button v-if="localNickname == todo.creator">Edit Task</button>
+        <button v-else class="greyButton" disabled>Edit Task</button>
       </router-link>
-      <button @click="deleteAndUpdateTodo(todo._id)">Delete Task</button>
+      
+      <button v-if="localNickname == todo.creator" @click="deleteAndUpdateTodo(todo._id)">Delete Task</button>
+      <button v-else class="greyButton" disabled>Delete Task</button>
     </div>
   </div>
 </div>
@@ -48,12 +51,18 @@ import { onMounted, ref } from 'vue'
 
       const UserData = ref([])
 
+      const localNickname = ref(localStorage.getItem('nickname'))
+
+
+      GetAllTodos()
+      .then(() => {
+        getIds()
+      })
+
+      
       onMounted(() => {
         state.value.newNickname = localStorage.getItem("nickname")
-        GetAllTodos()
-        .then(() => {
-          getIds()
-        })
+        
           
 
         console.log("state",state.value.todos)
@@ -111,12 +120,17 @@ import { onMounted, ref } from 'vue'
             })
           })
       }
-      return { state, GetAllTodos, newTodo, deleteAndUpdateTodo, deleteTodo, editTodo, makeTodo, convertNicknameToId, UserData }
+      return { state, GetAllTodos, newTodo, deleteAndUpdateTodo, deleteTodo, editTodo, makeTodo, convertNicknameToId, UserData, localNickname }
     },
   }
 </script>
 
 <style lang="css" scoped>
+
+.greyButton{
+  background-color: grey;
+  color: darkslategrey;
+}
 .todos {
   min-height: 100vh;
   padding: 20px;

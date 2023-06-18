@@ -22,15 +22,23 @@
           {{todo.todo}}
         </p>
 
-        <button >Edit Task</button>
+        <button v-if="localNickname == todo.creator">Edit Task</button>
+        <button v-else class="greyButton" disabled>Edit Task</button>
       </router-link>
-      <button @click="deleteAndUpdateTodo(todo._id)">Delete Task</button>
+      
+      <button v-if="localNickname == todo.creator" @click="deleteAndUpdateTodo(todo._id)">Delete Task</button>
+      <button v-else class="greyButton" disabled>Delete Task</button>
     </div>
 </div>
 </template>
 
+
 <style lang="css" scoped>
 
+.greyButton{
+  background-color: grey;
+  color: darkslategrey;
+}
 .container {
   display: flex;
   align-items: center; /* Align items vertically */
@@ -148,6 +156,8 @@ p {
         email: "",
         todos: []
     })
+
+    const localNickname = ref(localStorage.getItem('nickname'))
 
     fetch('https://ppwa-api-exam.onrender.com/specificUserData/' + route.params.id)
     .then(fetchData => {

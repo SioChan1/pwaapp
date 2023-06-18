@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { verifyToken } = require("../tokenValidation")
+const { verifyUserAndToken } = require("../userValidation")
 const Todo = require('../models/Todos')
 
 // Get all Todo route
@@ -35,7 +36,7 @@ router.get('/get/:id', async (req, res) => {
 })
 
 // delete todo by id
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', verifyUserAndToken, async (req, res) => {
   console.log("req.params.id")
   console.log(req.params.id)
     const tDelete = await Todo.findByIdAndDelete({ _id : req.params.id })
@@ -43,7 +44,7 @@ router.delete('/delete/:id', async (req, res) => {
 })
 
 // update todo by id
-router.put('/update/:id', async (req, res) => {
+router.put('/update/:id', verifyUserAndToken, async (req, res) => {
   const tUpdate = await Todo.updateOne(
     { _id: req.params.id }, 
     
