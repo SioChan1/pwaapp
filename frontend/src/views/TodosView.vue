@@ -52,7 +52,40 @@ import { onMounted, ref } from 'vue'
         state.value.newNickname = localStorage.getItem("nickname")
         GetAllTodos()
         .then(() => {
-          const users = []
+          getIds()
+        })
+          
+
+        console.log("state",state.value.todos)
+
+      })
+
+      const convertNicknameToId = (nickname) =>{
+        const index = UserData.value
+        .map(user => user.nickname)
+        .indexOf(nickname)
+
+        return UserData.value[index].id
+      }
+
+      const makeTodo = () =>{ 
+        newTodo()
+        state.value.newAuthor = ""
+        state.value.newTodoItem = ""
+        
+        GetAllTodos()
+        .then(() => {
+          getIds()
+        })
+      }
+
+      const deleteAndUpdateTodo = (id) => {
+        deleteTodo(id)
+        GetAllTodos()
+      }
+
+      const getIds = () => {
+        const users = []
           
           state.value.todos.forEach(todo => {
             if(users.indexOf(todo.creator) == -1){
@@ -77,40 +110,9 @@ import { onMounted, ref } from 'vue'
               UserData.value = convertion
             })
           })
-        })
-
-        console.log("state",state.value.todos)
-
-      })
-
-      const convertNicknameToId = (nickname) =>{
-        const index = UserData.value
-        .map(user => user.nickname)
-        .indexOf(nickname)
-
-        return UserData.value[index].id
       }
-
-      const makeTodo = () =>{ 
-        newTodo()
-        state.value.newAuthor = ""
-        state.value.newTodoItem = ""
-        
-        GetAllTodos()
-      }
-
-      const deleteAndUpdateTodo = (id) => {
-        deleteTodo(id)
-        GetAllTodos()
-      }
-
-
-      
-
       return { state, GetAllTodos, newTodo, deleteAndUpdateTodo, deleteTodo, editTodo, makeTodo, convertNicknameToId, UserData }
     },
-   
-    
   }
 </script>
 
