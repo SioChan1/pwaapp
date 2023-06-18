@@ -27,7 +27,6 @@ const id = ref(localStorage.getItem('id'))
       <div class="wrapper">
         <nav>
           <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
           <template v-if="loggedIn">  
             <RouterLink to="/todos">Todos</RouterLink>
             <router-link :to="'/profile/' + id">My Profile</router-link>
