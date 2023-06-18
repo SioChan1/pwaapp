@@ -19,7 +19,8 @@ img{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 5%;    
+    margin-top: 5%; 
+    margin-bottom: 2.5%;   
 }
 h1{
   text-align: center;
