@@ -12,7 +12,7 @@
       </div>
       <button type="submit">Login</button>
     </form>
-    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <p v-if="data.errorMessage" class="error-message">{{ data.errorMessage }}</p>
 
     <h2>Register</h2>
     <form @submit.prevent="register" class="form">
@@ -43,7 +43,7 @@ const data = ref({
   errorMessage: '',
   newUsername: '',
   newPassword: '',
-  registrationMessage: 'No errors',
+  registrationMessage: '',
 })
 
 const login = async () => {
@@ -68,7 +68,10 @@ const login = async () => {
         document.location.href="/";
       })
     } else {
-      data.value.errorMessage = response.message;
+      response.json()
+      .then (res =>{
+      data.value.errorMessage = res.error;
+      })
     }
   } catch (error) {
     console.error('Error during login', error);
