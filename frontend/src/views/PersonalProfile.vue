@@ -149,14 +149,14 @@ p {
         todos: []
     })
 
-    fetch('http://localhost:3000/specificUserData/' + route.params.id)
+    fetch('https://ppwa-api-exam.onrender.com/specificUserData/' + route.params.id)
     .then(fetchData => {
         fetchData.json().then(UserData => {
             UserData = UserData[0]
             
             data.value.name = UserData.nickname
             data.value.email = UserData.username
-            fetch('http://localhost:3000/todos/taskByNickname/' + UserData.nickname)
+            fetch('https://ppwa-api-exam.onrender.com/todos/taskByNickname/' + UserData.nickname)
             .then(fetchTodo => {
                 fetchTodo.json().then(Todos => {
                     data.value.todos = Todos

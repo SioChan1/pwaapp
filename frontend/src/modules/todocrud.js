@@ -18,7 +18,7 @@ const getTodos = () => {
 
   const GetAllTodos = async () => {
     try {
-      await fetch("http://localhost:3000/todos", {
+      await fetch("https://ppwa-api-exam.onrender.com/todos", {
         headers: {
           "auth-token": localStorage.getItem("token")
         }
@@ -47,7 +47,7 @@ const getTodos = () => {
         creator: state.value.newNickname
       }) 
     }
-    fetch("http://localhost:3000/todos/new", 
+    fetch("https://ppwa-api-exam.onrender.com/todos/new", 
       requestOptions
     ).then(GetAllTodos())
   }
@@ -55,7 +55,7 @@ const getTodos = () => {
 
   const deleteTodo = (_id) => {
     console.log(_id)
-    fetch("http://localhost:3000/todos/delete/" + _id, {
+    fetch("https://ppwa-api-exam.onrender.com/todos/delete/" + _id, {
       method: "DELETE",
       headers: {
         "auth-token": state.value.token
@@ -78,7 +78,7 @@ const getTodos = () => {
         todo: state.value.newTodoItem
       }) 
     }
-    fetch("http://localhost:3000/todos/update/" + /* todoId.value */ id, 
+    fetch("https://ppwa-api-exam.onrender.com/todos/update/" + /* todoId.value */ id, 
     requestOptions)
      // .then(GetAllTodos())
       .then(res =>  res.body ) // redundant
@@ -94,7 +94,7 @@ const getTodos = () => {
   const GetSpecificTodo = async (id) => {
     try {
         let result = null
-        await fetch("http://localhost:3000/todos", {
+        await fetch("https://ppwa-api-exam.onrender.com/todos", {
           headers: {
             "auth-token": localStorage.getItem("token")
           }

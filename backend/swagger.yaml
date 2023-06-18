@@ -3,9 +3,9 @@ info:
   version: "1.0.0"
   title: "REST API Documentation"
 servers:
-  - url: http://localhost:3000/
+  - url: https://ppwa-api-exam.onrender.com/
     description: Localhost development server 
-  - url: http://localhost:3000/
+  - url: https://ppwa-api-exam.onrender.com/
     description: Render remote server
 components:
   securitySchemes:

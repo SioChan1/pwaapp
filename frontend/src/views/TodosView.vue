@@ -62,7 +62,7 @@ import { onMounted, ref } from 'vue'
   
           console.log("users: " + users)
   
-          fetch('http://localhost:3000/convertNicknamesToIds', {
+          fetch('https://ppwa-api-exam.onrender.com/convertNicknamesToIds', {
             method: "post",
             headers: {
               "Content-Type": "application/json",
