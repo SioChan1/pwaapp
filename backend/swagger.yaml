@@ -22,6 +22,8 @@ components:
           type: string
         password:
           type: string
+        nickname:
+          type: string
     LoginCredentials:
       type: object
       properties:
@@ -36,6 +38,8 @@ components:
           type: string
         id:
           type: string
+        nickname:
+          type: string
     Todo:
       type: object
       properties:
@@ -43,12 +47,13 @@ components:
           type: string
         author:
           type: string
+        creator:
+          type: string
     TodoList:
       type: array
       items:
         $ref: "#/components/schemas/Todo"
 
-    
 paths:
   /register:
     post:
@@ -62,12 +67,21 @@ paths:
             schema:
               $ref: "#/components/schemas/User"
       responses:
-        "200":
-          description: Successful operation
+        "201":
+          description: User registration successful
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
   /login:
     post:
       tags:
@@ -81,11 +95,20 @@ paths:
               $ref: "#/components/schemas/LoginCredentials"
       responses:
         "200":
-          description: Successful operation
+          description: User login successful
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/LoginResponse"
+        "400":
+          description: Invalid username or password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
   /todos:
     get:
       tags:
@@ -111,8 +134,8 @@ paths:
             schema:
               $ref: "#/components/schemas/Todo"
       responses:
-        "200":
-          description: Successful operation
+        "201":
+          description: Todo creation successful
           content:
             application/json:
               schema:
@@ -136,6 +159,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Todo"
+        "404":
+          description: Todo not found
   /todos/delete/{id}:
     delete:
       tags:
@@ -155,6 +180,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Todo"
+        "404":
+          description: Todo not found
   /todos/update/{id}:
     put:
       tags:
@@ -180,4 +207,80 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Todo"
+        "404":
+          description: Todo not found
+  /specificUserData/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get user data by ID
+      parameters:
+        - in: path
+          name: id
+          description: User ID
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: User not found
+  /convertNicknamesToIds:
+    post:
+      tags:
+        - Users
+      summary: Convert user nicknames to user IDs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    nickname:
+                      type: string
+                    id:
+                      type: string
+        "408":
+          description: Request timeout
+  /taskByNickname/{nickname}:
+    get:
+      tags:
+        - Todos
+      summary: Get Todos by creator's nickname
+      parameters:
+        - in: path
+          name: nickname
+          description: Creator's nickname
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TodoList"
+        "404":
+          description: User not found
 
