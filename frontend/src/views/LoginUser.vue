@@ -12,7 +12,7 @@
       </div>
       <button type="submit">Login</button>
     </form>
-    <p v-if="data.errorMessage" class="error-message">{{ data.errorMessage }}</p>
+    <p v-if="data.errorMessage" :class="[data.responseType ? 'success-message' : 'error-message']">{{ data.errorMessage }}</p>
 
     <h2>Register</h2>
     <form @submit.prevent="register" class="form">
@@ -30,7 +30,7 @@
       </div>
       <button type="submit">Register</button>
     </form>
-    <p v-if="data.registrationMessage" class="success-message">{{ data.registrationMessage }}</p>
+    <p v-if="data.registrationMessage" :class="[data.responseTypeRegister ? 'success-message' : 'error-message']">{{ data.registrationMessage }}</p>
   </div>
 </template>
 
@@ -44,6 +44,8 @@ const data = ref({
   newUsername: '',
   newPassword: '',
   registrationMessage: '',
+  responseType: true,
+  responseTypeRegister: true
 })
 
 const login = async () => {
@@ -66,12 +68,14 @@ const login = async () => {
         localStorage.setItem("nickname", newData.data.nickname)
         /* router.push ("/") */
         document.location.href="/";
+        data.value.responseType= true
       })
     } else {
       response.json()
       .then (res =>{
       data.value.errorMessage = res.error;
       })
+      data.value.responseType= false
     }
   } catch (error) {
     console.error('Error during login', error);
@@ -95,12 +99,14 @@ const register = async () => {
     if (response.ok) {
       data.value.registrationMessage = "Congratulations, you registered!";
       //document.location.reload();
+      data.value.responseTypeRegister= true
     } else {
       response.json()
       .then(res => {
         data.value.registrationMessage = res.error;
 
       })
+      data.value.responseTypeRegister= false
       console.log("QwQ")
     }
   } catch (error) {
