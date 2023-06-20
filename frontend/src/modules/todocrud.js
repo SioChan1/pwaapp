@@ -38,8 +38,8 @@ const getTodos = () => {
     const requestOptions = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
-        // "auth-token": state.token
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token")
       },
       body: JSON.stringify({
         author: state.value.newAuthor,
@@ -58,7 +58,7 @@ const getTodos = () => {
     fetch("https://ppwa-api-exam.onrender.com/todos/delete/" + _id, {
       method: "DELETE",
       headers: {
-        "auth-token": state.value.token
+        "auth-token": localStorage.getItem("token")
       }
     })
     .then(GetAllTodos())
@@ -70,8 +70,8 @@ const getTodos = () => {
     const requestOptions = {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
-        // "auth-token": state.token
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token")
       },
       body: JSON.stringify({
         author: state.value.newAuthor,
