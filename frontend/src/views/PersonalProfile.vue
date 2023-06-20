@@ -58,10 +58,12 @@ h1 {
   font-size: 24px;
   margin-bottom: 10px;
   color: #2C7DA4;
+  text-align: left;
 }
 
 h2 {
     color:#2C7DA4;
+    text-align: left;
 }
 
 h3 {

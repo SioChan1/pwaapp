@@ -57,7 +57,7 @@ router.put('/update/:id', verifyUserAndToken, async (req, res) => {
   res.json(tUpdate)
 })
 //get tasks by creator 
-router.get('/taskByNickname/:nickname', async (req, res) => {
+router.get('/taskByNickname/:nickname', verifyToken, async (req, res) => {
   Todo.find({
     creator: req.params.nickname
   })
