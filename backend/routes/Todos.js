@@ -44,17 +44,18 @@ router.delete('/delete/:id', verifyUserAndToken, async (req, res) => {
 })
 
 // update todo by id
-router.put('/update/:id', verifyUserAndToken, async (req, res) => {
-  const tUpdate = await Todo.updateOne(
-    { _id: req.params.id }, 
-    
-    { $set: req.body }
-    /*  {
-      author: "Fox",
-      todo: "Sleep"
-    } */
-  )
-  res.json(tUpdate)
+router.put('/update/:id', verifyToken, async (req, res) => {
+  try {
+    Todo.updateOne(
+      { _id: req.params.id }, 
+      
+      { $set: req.body }
+    )
+    res.status(200).send()
+  } catch (error) {
+    console.log(error)
+    res.status(400).send()
+  }
 })
 //get tasks by creator 
 router.get('/taskByNickname/:nickname', verifyToken, async (req, res) => {
