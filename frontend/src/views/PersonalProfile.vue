@@ -164,6 +164,7 @@ p {
     fetch('https://ppwa-api-exam.onrender.com/specificUserData/' + route.params.id,
     {
       headers: {
+        'Content-Type': 'application/json',
         "auth-token": localStorage.getItem("token")
       }
     })
@@ -176,6 +177,7 @@ p {
             fetch('https://ppwa-api-exam.onrender.com/todos/taskByNickname/' + UserData.nickname,
             {
               headers: {
+                'Content-Type': 'application/json',
                 "auth-token": localStorage.getItem("token")
               }
             })

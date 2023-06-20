@@ -20,6 +20,7 @@ const getTodos = () => {
     try {
       await fetch("https://ppwa-api-exam.onrender.com/todos", {
         headers: {
+          'Content-Type': 'application/json',
           "auth-token": localStorage.getItem("token")
         }
       })
@@ -58,6 +59,7 @@ const getTodos = () => {
     fetch("https://ppwa-api-exam.onrender.com/todos/delete/" + _id, {
       method: "DELETE",
       headers: {
+        'Content-Type': 'application/json',
         "auth-token": localStorage.getItem("token")
       }
     })
@@ -96,6 +98,7 @@ const getTodos = () => {
         let result = null
         await fetch("https://ppwa-api-exam.onrender.com/todos", {
           headers: {
+            'Content-Type': 'application/json',
             "auth-token": localStorage.getItem("token")
           }
         })
