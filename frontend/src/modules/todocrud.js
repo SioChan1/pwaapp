@@ -83,9 +83,8 @@ const getTodos = () => {
     fetch("https://ppwa-api-exam.onrender.com/todos/update/" + /* todoId.value */ id, 
     requestOptions)
      // .then(GetAllTodos())
-      .then(res =>  res.body ) // redundant
-      .then(res => {console.log(res)}) // redundant
-      router.push('/todos')
+      .then(() => router.push('/todos'))
+      
   }
 
 
