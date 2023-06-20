@@ -87,7 +87,7 @@ const register = async () => {
     const response = await fetch('https://ppwa-api-exam.onrender.com/register', {
       method: "post",
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         username: data.value.newUsername,
@@ -107,7 +107,6 @@ const register = async () => {
 
       })
       data.value.responseTypeRegister= false
-      console.log("QwQ")
     }
   } catch (error) {
     console.error('Error during registration', error);

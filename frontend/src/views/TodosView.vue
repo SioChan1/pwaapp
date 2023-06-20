@@ -62,11 +62,6 @@ import { onMounted, ref } from 'vue'
       
       onMounted(() => {
         state.value.newNickname = localStorage.getItem("nickname")
-        
-          
-
-        console.log("state",state.value.todos)
-
       })
 
       const convertNicknameToId = (nickname) =>{
@@ -102,8 +97,6 @@ import { onMounted, ref } from 'vue'
             }
           });
   
-          console.log("users: " + users)
-  
           fetch('https://ppwa-api-exam.onrender.com/convertNicknamesToIds', {
             method: "post",
             headers: {
@@ -116,7 +109,6 @@ import { onMounted, ref } from 'vue'
           })
           .then(data => {
             data.json().then(convertion => {
-              console.log(convertion)
               UserData.value = convertion
             })
           })

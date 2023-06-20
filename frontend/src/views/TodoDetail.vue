@@ -33,8 +33,6 @@ export default {
 
     const loadData = async () => {
       const data = await GetSpecificTodo(route.params.id)
-        
-      console.log(data)
 
       item.value.author = data.author
       item.value.todo = data.todo

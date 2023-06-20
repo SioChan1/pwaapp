@@ -151,7 +151,6 @@ p {
     import { useRoute } from 'vue-router'
     import { ref } from 'vue';
     const route = useRoute()
-    console.log(route.params.id)
 
     const data = ref({
         name: "",
