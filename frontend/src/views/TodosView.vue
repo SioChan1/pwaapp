@@ -108,6 +108,7 @@ import { onMounted, ref } from 'vue'
             method: "post",
             headers: {
               "Content-Type": "application/json",
+              "auth-token": localStorage.getItem("token")
             },
             body: JSON.stringify({
               users

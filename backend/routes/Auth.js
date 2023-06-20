@@ -74,7 +74,7 @@ router.post('/login', async (req, res) => {
 })
 
 // Get user data 
-router.get('/specificUserData/:id', async (req, res) => {
+router.get('/specificUserData/:id', verifyToken, async (req, res) => {
     //req.params.id
     User.find({
         _id: req.params.id
@@ -84,7 +84,7 @@ router.get('/specificUserData/:id', async (req, res) => {
 })
 
 //user id for profile(nicknames)
-router.post('/convertNicknamesToIds', async (req, res) => {
+router.post('/convertNicknamesToIds', verifyToken, async (req, res) => {
     const returnArray = []
 
     req.body.users.forEach(user => {

@@ -16,7 +16,7 @@ router.get("/verifytest", verifyToken, (req, res) => {
 })
 
 // create new Todo
-router.post('/new', async (req, res) => {
+router.post('/new', verifyToken, async (req, res) => {
   
     const newTodo = new Todo(
       req.body // What the Vue App is sending

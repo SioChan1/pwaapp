@@ -161,14 +161,24 @@ p {
 
     const localNickname = ref(localStorage.getItem('nickname'))
 
-    fetch('https://ppwa-api-exam.onrender.com/specificUserData/' + route.params.id)
+    fetch('https://ppwa-api-exam.onrender.com/specificUserData/' + route.params.id,
+    {
+      headers: {
+        "auth-token": localStorage.getItem("token")
+      }
+    })
     .then(fetchData => {
         fetchData.json().then(UserData => {
             UserData = UserData[0]
             
             data.value.name = UserData.nickname
             data.value.email = UserData.username
-            fetch('https://ppwa-api-exam.onrender.com/todos/taskByNickname/' + UserData.nickname)
+            fetch('https://ppwa-api-exam.onrender.com/todos/taskByNickname/' + UserData.nickname,
+            {
+              headers: {
+                "auth-token": localStorage.getItem("token")
+              }
+            })
             .then(fetchTodo => {
                 fetchTodo.json().then(Todos => {
                     data.value.todos = Todos
